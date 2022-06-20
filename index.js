@@ -1,21 +1,26 @@
 'use strict';
 
-const { sequelize, UserModel, UserMessageModel } = require('./src/models');
+const {
+  sequelize,
+  UserInterface,
+  UserMessageInterface,
+} = require('./src/models');
 const server = require('./src/server');
 
 // creates tables and checks connection.
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     console.log('USER Success');
-    UserModel.create({
+    UserInterface.create({
       userName: 'Bob',
       age: 54,
       email: 'bob@protonmail.ch',
     });
     console.log('USER MODEL Success');
-    UserMessageModel.create({
+    UserMessageInterface.create({
       recipient: 'Tom Hanks',
+      userId: 1,
       sender: 'John Malkovich',
       messageBody: 'This is the best message!',
     });
